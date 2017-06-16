@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Closures in JavaScript</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-slide-content {
+        font-size: 24px;
+        line-height: 150%;
+      }
+
+      .helper-lines {
+        position: absolute;
+        top:0px;
+        left:0px;
+        width:100%;
+        height:100%;
+        display:none;
+      }
+
+      .helper-line {
+        position:absolute;
+        height:100%;
+        width:100%;
+        background-color:red;
+      }
+    </style>
+  </head>
+  <body>
+<div class="helper-lines">
+  <div class="helper-line" style="top:33%;height:2px"></div>
+  <div class="helper-line" style="top:67%;height:2px"></div>
+  <div class="helper-line" style="left:33%;width:2px"></div>
+  <div class="helper-line" style="left:67%;width:2px"></div>
+</div>
+    <textarea id="source">
+
+class: center, middle
+
+# Closures in JavaScript
+
+(Hi, I’m Anna!)
+
+---
+
+# What’s a function?
+
+---
+
+# What’s a function?
+
+```js
+function foo(a, b) {
+  // A list of things to do:
+  console.log('a =', a);
+  console.log('b =', b);
+  return a + b;
+}
+
+foo(10, 20); // Do those things!
+```
+
+---
+
+# What’s a function?
+
+```js
+function foo(a, b) {
+  // A list of things to keep in memory:
+  var sum = a + b;
+
+  // A list of things to do:
+  console.log('a =', a);
+  console.log('b =', b);
+  console.log('sum =', b);
+  return sum;
+}
+
+foo(10, 20); // Do those things!
+
+console.log(sum); // This doesn’t work!
+```
+
+---
+
+# What’s a closure?
+
+```js
+var a = 10;
+
+function foo(b) {
+  return a + b;
+}
+
+foo(20);
+  // => 30
+```
+
+---
+
+# What can a closure do?
+
+```js
+var a = 0;
+
+function counter() {
+  a += 1;
+}
+
+counter();
+counter();
+counter();
+console.log(a);
+  // => 3
+```
+
+---
+
+# What can a closure do?
+
+```js
+function makeCounter() {
+  var a = 0;
+
+  function counter() {
+    a += 1; return a;
+  }
+
+  return counter;
+}
+
+var counter1 = makeCounter();
+var counter2 = makeCounter();
+counter1(); // returns 1
+counter2(); // returns 1
+counter1(); // returns 2
+```
+
+---
+
+# Why are closures important?
+
+```js
+http.createServer(function(req, res) {
+  fs.readFile('.' + url.parse(req.url).pathname,
+              function(err, content) {
+    if (err) {
+      res.writeHead(404);
+      res.end(String(err));
+    } else {
+      res.writeHead(200);
+      res.end(content);
+    }
+  });
+}).listen(8000);
+```
+
+(Please don’t try this at home)
+
+---
+
+# → Workshopper time!
+
+```sh
+npm install -g scope-chains-closures
+```
+
+    </textarea>
+    <script src="remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
